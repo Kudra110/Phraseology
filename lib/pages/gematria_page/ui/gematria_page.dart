@@ -6,25 +6,17 @@ import 'package:name_with_numbers/pages/gematria_page/bloc/gematria_event.dart';
 import 'package:name_with_numbers/pages/gematria_page/bloc/gematria_state.dart';
 import 'package:name_with_numbers/core/appscafuld.dart';
 
-class GematriaPage
-    extends StatefulWidget {
+class GematriaPage extends StatefulWidget {
   @override
-  _GematriaPageState createState() =>
-      _GematriaPageState();
+  _GematriaPageState createState() => _GematriaPageState();
 }
 
-class _GematriaPageState
-    extends State<GematriaPage> {
-  final TextEditingController
-      _controller =
-      TextEditingController();
-  bool
-      _showResult =
-      false;
+class _GematriaPageState extends State<GematriaPage> {
+  final TextEditingController _controller = TextEditingController();
+  bool _showResult = false;
 
   @override
-  Widget
-      build(BuildContext context) {
+  Widget build(BuildContext context) {
     return AppScaffold(
       showBackButton: true,
       title: 'حساب الجمل',
@@ -46,7 +38,8 @@ class _GematriaPageState
                     children: [
                       Text(
                         'أدخل الاسم لحساب الجمل:',
-                        style: GoogleFonts.cairo(fontSize: 18, fontWeight: FontWeight.w500),
+                        style: GoogleFonts.cairo(
+                            fontSize: 18, fontWeight: FontWeight.w500),
                         textAlign: TextAlign.center,
                       ),
                       SizedBox(height: 15),
@@ -62,7 +55,8 @@ class _GematriaPageState
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blueGrey[600],
-                          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 40, vertical: 12),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -71,11 +65,13 @@ class _GematriaPageState
                           setState(() {
                             _showResult = true;
                           });
-                          BlocProvider.of<GematriaBloc>(context).add(CalculateGematria(_controller.text));
+                          BlocProvider.of<GematriaBloc>(context)
+                              .add(CalculateGematria(_controller.text));
                         },
                         child: Text(
                           'احسب',
-                          style: GoogleFonts.cairo(fontSize: 18, color: Colors.white),
+                          style: GoogleFonts.cairo(
+                              fontSize: 18, color: Colors.white),
                         ),
                       ),
                     ],
@@ -103,8 +99,7 @@ class _GematriaPageState
     );
   }
 
-  Widget _buildResultCard(int total,
-      {bool empty = false}) {
+  Widget _buildResultCard(int total, {bool empty = false}) {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),

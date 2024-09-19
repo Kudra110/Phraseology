@@ -2,17 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:name_with_numbers/home_page.dart';
 import 'package:name_with_numbers/pages/AscendantSignPage/ui/AscendantSignPage.dart';
+import 'package:name_with_numbers/pages/CompatibilityPage/CompatibilityPage.dart';
 import 'package:name_with_numbers/pages/ZodiacSignPage/ui/zodiacsignpage.dart';
 import 'package:name_with_numbers/pages/gematria_page/ui/gematria_page.dart';
 
-class AppScaffold
-    extends StatelessWidget {
-  final String
-      title;
-  final Widget
-      body;
-  final bool
-      showBackButton; // متغير للتحكم في عرض زر الرجوع
+class AppScaffold extends StatelessWidget {
+  final String title;
+  final Widget body;
+  final bool showBackButton; // متغير للتحكم في عرض زر الرجوع
 
   const AppScaffold({
     Key? key,
@@ -22,8 +19,7 @@ class AppScaffold
   }) : super(key: key);
 
   @override
-  Widget
-      build(BuildContext context) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         // زر الرجوع يظهر هنا بشكل صريح إذا كانت showBackButton = true
@@ -33,15 +29,32 @@ class AppScaffold
                 onPressed: () {
                   // استخدام Navigator.pushAndRemoveUntil لإزالة جميع الصفحات من المكدس
                   Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => HomePage()), // الانتقال إلى الصفحة الرئيسية
-                    (Route<dynamic> route) => false, // إزالة جميع الصفحات من المكدس
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            HomePage()), // الانتقال إلى الصفحة الرئيسية
+                    (Route<dynamic> route) =>
+                        false, // إزالة جميع الصفحات من المكدس
                   );
                 },
               )
             : null,
-        title: Text(
-          title,
-          style: GoogleFonts.cairo(fontSize: 22, fontWeight: FontWeight.w600),
+        title: Row(
+          children: [
+            Expanded(
+              // استخدام Expanded للسماح للنص بأخذ المساحة المتاحة
+              child: Text(
+                title,
+                style: GoogleFonts.cairo(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600), // تقليل حجم الخط
+                overflow: TextOverflow
+                    .ellipsis, // إضافة النقاط الثلاث إذا كان النص أطول من المساحة المتاحة
+                softWrap: true, // السماح بتقسيم النص إذا كان طويلًا
+                maxLines: 2, // تحديد عدد الأسطر
+                textAlign: TextAlign.center, // محاذاة النص في المنتصف
+              ),
+            ),
+          ],
         ),
         backgroundColor: Colors.blueGrey[800],
         centerTitle: true,
@@ -59,14 +72,14 @@ class AppScaffold
           ),
         ],
       ),
+
       endDrawer: _buildDrawer(context), // القائمة الجانبية في الجهة اليمنى
       body: body,
     );
   }
 
   // بناء القائمة الجانبية (Drawer)
-  Widget
-      _buildDrawer(BuildContext context) {
+  Widget _buildDrawer(BuildContext context) {
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -88,27 +101,41 @@ class AppScaffold
             leading: Icon(Icons.calculate, color: Colors.blueGrey[800]),
             title: Text('حساب الجمل', style: GoogleFonts.cairo(fontSize: 18)),
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => GematriaPage()));
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => GematriaPage()));
             },
           ),
           ListTile(
             leading: Icon(Icons.star, color: Colors.blueGrey[800]),
-            title: Text('حساب البرج الطالع', style: GoogleFonts.cairo(fontSize: 18)),
+            title: Text('حساب البرج الطالع',
+                style: GoogleFonts.cairo(fontSize: 18)),
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => AscendantSignPage()));
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => AscendantSignPage()));
             },
           ),
           ListTile(
             leading: Icon(Icons.settings, color: Colors.blueGrey[800]),
-            title: Text('حساب البرج الفلكي', style: GoogleFonts.cairo(fontSize: 18)),
+            title: Text('حساب البرج الفلكي',
+                style: GoogleFonts.cairo(fontSize: 18)),
             onTap: () {
-Navigator.of(context).push(MaterialPageRoute(builder: (context) => ZodiacSignPage()));            },
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => ZodiacSignPage()));
+            },
           ),
           ListTile(
-            leading: Icon(Icons.info, color: Colors.blueGrey[800]),
-            title: Text('حول التطبيق', style: GoogleFonts.cairo(fontSize: 18)),
+            leading: Icon(Icons.compare, color: Colors.blueGrey[800]),
+            title: FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.centerLeft,
+              child: Text(
+                '(اسماء)حساب التوافق بين الزوجين',
+                style: GoogleFonts.cairo(fontSize: 18),
+              ),
+            ),
             onTap: () {
-              // يمكن إضافة صفحة "حول التطبيق" هنا
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => CompatibilityPage()));
             },
           ),
         ],
