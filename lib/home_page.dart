@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:name_with_numbers/pages/CompatibilityPage/CompatibilityPage.dart';
 import 'package:name_with_numbers/pages/AscendantSignPage/ui/AscendantSignPage.dart';
 import 'package:name_with_numbers/core/appscafuld.dart';
+import 'package:name_with_numbers/pages/TasbeehPage/TasbeehPage.dart';
+import 'package:name_with_numbers/pages/TasbeehPage/bloc/TasbeehBloc.dart';
 import 'package:name_with_numbers/pages/ZodiacCompatibilityPage/ZodiacCompatibilityPage.dart';
 import 'package:name_with_numbers/pages/ZodiacSignPage/ui/zodiacsignpage.dart';
 import 'package:name_with_numbers/pages/gematria_page/ui/gematria_page.dart';
@@ -30,9 +33,19 @@ class HomePage extends StatelessWidget {
                 SizedBox(height: 20),
                 _buildCard(context, '(اسماء)حساب التوافق بين الزوجين',
                     Icons.compare, CompatibilityPage()),
-                     SizedBox(height: 20),
+                SizedBox(height: 20),
                 _buildCard(context, '(ابراج)حساب التوافق بين الزوجين',
                     Icons.compare, ZodiacCompatibilityPage()),
+                _buildCard(
+  context,
+  'اعرف وردك',
+  Icons.favorite,
+  BlocProvider(
+    create: (context) => TasbeehBloc(),
+    child: TasbeehPage(),
+  ),
+),
+
               ],
             ),
           ),

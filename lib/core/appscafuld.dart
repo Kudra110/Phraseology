@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:name_with_numbers/home_page.dart';
 import 'package:name_with_numbers/pages/AscendantSignPage/ui/AscendantSignPage.dart';
 import 'package:name_with_numbers/pages/CompatibilityPage/CompatibilityPage.dart';
+import 'package:name_with_numbers/pages/TasbeehPage/TasbeehPage.dart';
+import 'package:name_with_numbers/pages/TasbeehPage/bloc/TasbeehBloc.dart';
 import 'package:name_with_numbers/pages/ZodiacSignPage/ui/zodiacsignpage.dart';
 import 'package:name_with_numbers/pages/gematria_page/ui/gematria_page.dart';
+
+import '../pages/ZodiacCompatibilityPage/ZodiacCompatibilityPage.dart';
 
 class AppScaffold extends StatelessWidget {
   final String title;
@@ -136,6 +141,43 @@ class AppScaffold extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => CompatibilityPage()));
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.compare, color: Colors.blueGrey[800]),
+            title: FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'حساب التوافق بين الزوجين (ابراج) ',
+                style: GoogleFonts.cairo(fontSize: 18),
+              ),
+            ),
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => ZodiacCompatibilityPage()));
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.compare, color: Colors.blueGrey[800]),
+            title: FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'حساب الأوراد',
+                style: GoogleFonts.cairo(fontSize: 18),
+              ),
+            ),
+            onTap: () {
+              Navigator.of(context).pop(); // Close the drawer first
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => BlocProvider(
+                    create: (_) => TasbeehBloc(),
+                    child: TasbeehPage(),
+                  ),
+                ),
+              );
             },
           ),
         ],
