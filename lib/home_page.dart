@@ -9,6 +9,7 @@ import 'package:name_with_numbers/pages/TasbeehPage/bloc/TasbeehBloc.dart';
 import 'package:name_with_numbers/pages/ZodiacCompatibilityPage/ZodiacCompatibilityPage.dart';
 import 'package:name_with_numbers/pages/ZodiacSignPage/ui/zodiacsignpage.dart';
 import 'package:name_with_numbers/pages/gematria_page/ui/gematria_page.dart';
+import 'package:name_with_numbers/qureenpage/qureenpage.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -36,16 +37,19 @@ class HomePage extends StatelessWidget {
                 SizedBox(height: 20),
                 _buildCard(context, '(ابراج)حساب التوافق بين الزوجين',
                     Icons.compare, ZodiacCompatibilityPage()),
+                     SizedBox(height: 20),
                 _buildCard(
-  context,
-  'اعرف وردك',
-  Icons.favorite,
-  BlocProvider(
-    create: (context) => TasbeehBloc(),
-    child: TasbeehPage(),
-  ),
-),
-
+                  context,
+                  'اعرف وردك',
+                  Icons.favorite,
+                  BlocProvider(
+                    create: (context) => TasbeehBloc(),
+                    child: TasbeehPage(),
+                  ),
+                ),
+                SizedBox(height: 20),
+                _buildCard(context, 'حساب القرين',
+                    Icons.compare, QareenExtractionPage()),
               ],
             ),
           ),
